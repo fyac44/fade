@@ -1,7 +1,7 @@
 #!/bin/bash
 #USAGE      features [FEATURES] [FEATURES_ARGUMENT1] [FEATURES_ARGUMENT2] ...
 #TASK       run the feature extraction
-#COPYRIGHT  (C) 2014-2018 Marc René Schädler
+#COPYRIGHT  (C) 2014-2018 Marc René Schädler / Modified by: 2019 - Franklin Alvarez
 
 # Get the directory this script is stored in and its name
 DIR=$(cd "$( dirname "$0" )" && pwd)
@@ -90,16 +90,23 @@ fi
 if [ -e "${FSD}" ]; then
   # Check if the source files exists
   NUM_SOURCE_FILES=$(find -L "${FSD}" -type f -iname '*.wav' | head -n1 | wc -l)
+  NUM_SOURCE_FILES_MAT=$(find -L "${FSD}" -type f -iname '*.mat' | head -n1 | wc -l)
   if [ "${NUM_SOURCE_FILES}" -lt 1 ]; then
-    echo "no '*.wav' files found in '${FSD}'"
-    exit 1
+    if [ "${NUM_SOURCE_FILES_MAT}" -lt 1 ]; then
+      echo "no '*.wav' nor '*.mat' files found in '${FSD}'"
+      exit 1
+    fi
   fi
 
   # Generate source and target lists and directories
   mkdir -p "${FCD}" || exit 1
   echo "generate source '${FCD}/sourcelist' and target '${FCD}/targetlist' lists"
   treelists "${FSD}" "${FCD}/sourcelist" "${FTD}" "${FCD}/targetlist.tmp" || exit 1
-  sed -e 's/\.wav$/.htk/g' "${FCD}/targetlist.tmp" > "${FCD}/targetlist"
+  if [ "${NUM_SOURCE_FILES}" -lt 1 ]; then
+    sed -e 's/\.mat$/.htk/g' "${FCD}/targetlist.tmp" > "${FCD}/targetlist"
+  else
+    sed -e 's/\.wav$/.htk/g' "${FCD}/targetlist.tmp" > "${FCD}/targetlist"
+  fi
   rm "${FCD}/targetlist.tmp"
 fi
 
