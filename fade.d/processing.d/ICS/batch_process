@@ -1,0 +1,24 @@
+#!/bin/bash
+
+SOURCELIST="$1"
+TARGETLIST="$2"
+INCREMENT="$3"
+OFFSET="$4"
+shift 4
+
+# Working directory is the current directory
+WKD="${PWD}"
+
+# Processing script directory
+PSD="${WKD}/config/processing/scripts"
+
+# Check that matlab processing script exists
+if [ ! -f "${PSD}/process_data.m" ]; then
+  echo "Processing script '${PSD}/process_data.m' missing"
+  exit 1
+fi
+
+IFS=$'\n' read -d '' -r -a SOURCEFILES < "$SOURCELIST"
+IFS=$'\n' read -d '' -r -a TARGETFILES < "$TARGETLIST"
+
+echo "process_data('${SOURCELIST}', '${TARGETLIST}', ${INCREMENT}, ${OFFSET});" | run-matlab "${PSD}" || exit 1
