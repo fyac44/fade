@@ -25,8 +25,13 @@ frameperiod = 1/100; %seconds
 asciifill = '01234567899';
 
 for i=block:blocks:num_files
-  [signal fs] = audioread(filelist_load{i});
-  features = feature_extraction(signal, fs, varargin{:});
+  if endsWith(filelist_load{i},'.mat')
+    load(filelist_load{i}, 'elData');
+    features = feature_extraction(elData, varargin{:});
+  else
+    [signal fs] = audioread(filelist_load{i});
+    features = feature_extraction(signal, fs, varargin{:});
+  end
   writehtk(filelist_save{i}, features.', frameperiod, 9);
   fprintf(asciifill(1+floor(i/num_files*(length(asciifill)-1))));
 end
