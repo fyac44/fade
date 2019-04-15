@@ -2,19 +2,25 @@
 This software can be used to model simple acoustical recognition, detection, and discrimination experiments.
 
 Copyright (C) 2014-2018 Marc René Schädler
+
 E-mail: marc.r.schaedler@uni-oldenburg.de
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 MODIFIED BY:
+
 2019 - Franklin Alvarez
+
 E-mail: fyac44@gmail.com
 
 The main purpose of the modifications done to the original FADE, is adding the posibillities to use Cochlear Implant Coding Strategies, and to extract features from ".mat" files, which will contain the electrodogram information of a cochlear implant.
 
-Because the Coding Strategy is not free, and the auditory model to extract features from ".mat" doesn't belong to me, they cannot be found in this repository.
+Because the Coding Strategy is not free and, the spectral ripple corpus generator and the auditory model to extract features from ".mat" don't belong to me, they cannot be found in this repository.
 
-Finally, this repository is part of my Master Thesis work, entitled "A Computational Model for Speech Reception and Spectral Modulation Threshold Performance of Cochlear Implants Users" which is in development, but, hopefully, will be presented this year.
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Finally, this repository is part of my Master Thesis work, entitled "A Computational Model for Speech Reception and Spectral Modulation Threshold Performance of Cochlear Implants Users" which is in development, but, hopefully, will be presented this year
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 The scripts provided in this software package can be used to perform the experiments described in [1] and [2], where the approach is explained in more detail.
 This reference implementation serves as starting point for those who want to reproduce the results or tinker around with it.
