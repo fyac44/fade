@@ -12,13 +12,13 @@ fs = 5000;                              % new sample frequency
 num_fibers = Geometry.nF;               % number of fibers
 durSignal = Results.t(end) / 1000000;   % duration of the audio signal
 i_time = 1/fs;                          % Period of 5000Hz
-num_frames = ceil(durSignal/i_time);    % number of downsampled frames
+num_frames = ceil(durSignal/i_time)+1;    % number of downsampled frames
 
 SP = zeros(num_fibers, num_frames);     % Downsample fiber spiking
 for i=1:num_fibers
     fST = Results.SpikeTimes{1,i};
     for j = 1:size(fST,2)
-        k = round(fST(j)*fs/1000000);
+        k = round(fST(j)*fs/1000000)+1;
         SP(i,k) = 1;
     end
 end
